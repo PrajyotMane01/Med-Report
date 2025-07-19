@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function GitHubButton() {
   return (
     <Link
-      href="https://github.com/your-username/medical-report" // Replace with your actual GitHub repo URL
+      href="https://github.com/PrajyotMane01/Med-Report"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 w-12 h-12 bg-gray-900 hover:bg-gray-800 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 z-50 hover:scale-110 active:scale-95"

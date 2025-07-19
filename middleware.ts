@@ -12,8 +12,9 @@ export async function middleware(req: NextRequest) {
 
   // Protect the /analyze route
   if (req.nextUrl.pathname.startsWith('/analyze') && !session) {
-    const redirectUrl = req.nextUrl.clone()
-    redirectUrl.pathname = '/signin'
+    // Use environment variable if available, otherwise use request origin
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || req.nextUrl.origin
+    const redirectUrl = new URL('/signin', baseUrl)
     redirectUrl.searchParams.set('redirectTo', req.nextUrl.pathname)
     return NextResponse.redirect(redirectUrl)
   }

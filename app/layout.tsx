@@ -14,6 +14,9 @@ const quicksand = Quicksand({
 export const metadata: Metadata = {
   title: "MedReports AI - Medical Report Analysis",
   description: "AI-powered medical report analysis and simplification tool",
+  icons: {
+    icon: '/icon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -23,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${quicksand.variable} font-sans antialiased`}>
+      <body className={`${quicksand.variable} font-sans antialiased`} suppressHydrationWarning={true}>
         <AuthProvider>
           {children}
           <GitHubButton />

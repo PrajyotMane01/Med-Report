@@ -12,6 +12,12 @@ export async function GET(request: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code)
   }
 
+  // Use environment variable if available, otherwise use request origin
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || requestUrl.origin
+  
+  // Check if there's a redirectTo parameter for where to go after auth
+  const redirectTo = requestUrl.searchParams.get('redirectTo') || '/'
+  
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin)
+  return NextResponse.redirect(`${baseUrl}${redirectTo}`)
 } 

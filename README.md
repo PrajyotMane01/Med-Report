@@ -76,7 +76,7 @@ The application uses a comprehensive PostgreSQL schema with:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/medical-report.git
+git clone https://github.com/PrajyotMane01/Med-Report.git
 cd medical-report
 npm install
 ```
@@ -93,6 +93,9 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 # AI Service API Keys
 NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
 NEXT_PUBLIC_TOGETHER_API_KEY=your_together_api_key
+
+# App Configuration
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
 ### 3. Supabase Setup
@@ -177,10 +180,14 @@ The application uses a comprehensive PostgreSQL schema. Refer to `DATABASE_SETUP
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `NEXT_PUBLIC_GEMINI_API_KEY`
    - `NEXT_PUBLIC_TOGETHER_API_KEY`
+   - `NEXT_PUBLIC_APP_URL` (set to your production domain, e.g., `https://yourdomain.vercel.app`)
 
 3. **Update Supabase Settings**
    - Add production URLs to Supabase Auth configuration
-   - Update redirect URLs to include your domain
+   - Update redirect URLs to include your domain:
+     - **Site URL**: `https://yourdomain.vercel.app`
+     - **Redirect URLs**: `https://yourdomain.vercel.app/auth/callback`
+   - Make sure to remove or update any localhost URLs for production
 
 ### Other Deployment Options
 
@@ -349,6 +356,14 @@ We welcome contributions! Please follow these guidelines:
 - Verify Google OAuth credentials in Supabase
 - Check redirect URLs configuration
 - Ensure environment variables are set correctly
+- **Production Redirect Issues**: Make sure `NEXT_PUBLIC_APP_URL` is set to your production domain in environment variables
+
+**Localhost Redirect in Production**
+If you're being redirected to localhost after signing in on production:
+1. Set `NEXT_PUBLIC_APP_URL` to your production URL (e.g., `https://yourdomain.vercel.app`)
+2. Update Supabase Auth settings to include your production domain
+3. Remove localhost URLs from Supabase redirect configuration
+4. Redeploy your application after setting the environment variable
 
 **Database Errors**
 - Verify Supabase connection
@@ -379,8 +394,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/your-username/medical-report/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/medical-report/discussions)
+- **Issues**: [GitHub Issues](https://github.com/PrajyotMane01/Med-Report/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/PrajyotMane01/Med-Report/discussions)
 - **Email**: support@medreports.ai
 
 ---
