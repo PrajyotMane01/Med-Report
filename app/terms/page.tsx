@@ -139,7 +139,7 @@ export default function TermsOfService() {
 
               <section>
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Changes to Terms</h2>
-                <p>We reserve the right to modify these terms at any time. We will notify users of any material changes by posting the new Terms of Service on this page and updating the "Last updated" date.</p>
+                <p>We reserve the right to modify these terms at any time. We will notify users of any material changes by posting the new Terms of Service on this page and updating the &quot;Last updated&quot; date.</p>
               </section>
 
               <section>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface FileUploadProps {
   file: File | null;
@@ -92,10 +93,13 @@ const FileUpload: React.FC<FileUploadProps> = ({
               <div className="animate-fade-in space-y-4">
                 {preview && (
                   <div className="relative max-w-md mx-auto">
-                    <img 
+                    <Image 
                       src={preview} 
                       alt="Report preview" 
+                      width={300}
+                      height={300}
                       className="rounded-lg shadow-sm max-h-[300px] w-auto mx-auto"
+                      style={{ objectFit: 'contain' }}
                     />
                     <button
                       type="button"

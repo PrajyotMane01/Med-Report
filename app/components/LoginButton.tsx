@@ -1,7 +1,9 @@
 'use client';
 
+import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { useAuth } from './AuthProvider';
-import { useState, useRef, useEffect } from 'react';
+import { createSupabaseClient } from '@/lib/supabase';
 
 interface LoginButtonProps {
   size?: 'default' | 'large';
@@ -42,9 +44,11 @@ export default function LoginButton({ size = 'default' }: LoginButtonProps) {
           className="flex items-center justify-center w-8 h-8 rounded-full ring-2 ring-green-200 ring-offset-2 hover:ring-green-300 transition-all duration-200"
         >
           {user.user_metadata?.avatar_url ? (
-            <img
+            <Image
               src={user.user_metadata.avatar_url}
               alt="Profile"
+              width={32}
+              height={32}
               className="w-8 h-8 rounded-full object-cover"
             />
           ) : (
@@ -61,9 +65,11 @@ export default function LoginButton({ size = 'default' }: LoginButtonProps) {
             <div className="px-4 py-3 border-b border-gray-100">
               <div className="flex items-center gap-3">
                 {user.user_metadata?.avatar_url ? (
-                  <img
+                  <Image
                     src={user.user_metadata.avatar_url}
                     alt="Profile"
+                    width={40}
+                    height={40}
                     className="w-10 h-10 rounded-full object-cover"
                   />
                 ) : (
