@@ -1,5 +1,5 @@
 import { createSupabaseClient } from './supabase';
-import { User, PostgrestError } from '@supabase/supabase-js';
+import { PostgrestError } from '@supabase/supabase-js';
 
 // Type definitions for our database schema
 export interface MedicalReport {

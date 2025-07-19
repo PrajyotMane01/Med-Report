@@ -41,10 +41,10 @@ const AnalyzePage = () => {
 
 [
   {
-    "name": "Test name (with a simple explanation in parentheses)",
-    "value": "Test value and unit",
-    "status": "NORMAL" | "CONCERNING" | "ABNORMAL",
-    "explanation": "Brief explanation in simple, non-medical language. Explain what this means for the person's health."
+    &quot;name&quot;: &quot;Test name (with a simple explanation in parentheses)&quot;,
+    &quot;value&quot;: &quot;Test value and unit&quot;,
+    &quot;status&quot;: &quot;NORMAL&quot; | &quot;CONCERNING&quot; | &quot;ABNORMAL&quot;,
+    &quot;explanation&quot;: &quot;Brief explanation in simple, non-medical language. Explain what this means for the person's health.&quot;
   },
   ...
 ]
