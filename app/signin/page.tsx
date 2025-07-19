@@ -1,13 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import LoginButton from '../components/LoginButton';
 import { useAuth } from '../components/AuthProvider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function SignInPage() {
+// Component that uses useSearchParams - must be wrapped in Suspense
+function SignInContent() {
   const { user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -83,11 +84,30 @@ export default function SignInPage() {
                 </p>
               </div>
             </div>
-
-            
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+// Loading fallback component
+function SignInLoading() {
+  return (
+    <div className="min-h-screen bg-[#f0f9f0] flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4cbe4c] mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main page component with Suspense boundary
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<SignInLoading />}>
+      <SignInContent />
+    </Suspense>
   );
 } 
