@@ -1,5 +1,5 @@
 import { createSupabaseClient } from './supabase';
-import { User } from '@supabase/supabase-js';
+import { User, PostgrestError } from '@supabase/supabase-js';
 
 // Type definitions for our database schema
 export interface MedicalReport {
@@ -88,7 +88,7 @@ export class DatabaseService {
     file_size: number;
     file_type: string;
     original_text?: string;
-  }): Promise<{ data: MedicalReport | null; error: any }> {
+  }): Promise<{ data: MedicalReport | null; error: PostgrestError | null }> {
     const { data: report, error } = await this.supabase
       .from('medical_reports')
       .insert([data])
@@ -101,7 +101,7 @@ export class DatabaseService {
   async updateMedicalReport(
     id: string,
     updates: Partial<MedicalReport>
-  ): Promise<{ data: MedicalReport | null; error: any }> {
+  ): Promise<{ data: MedicalReport | null; error: PostgrestError | null }> {
     const { data: report, error } = await this.supabase
       .from('medical_reports')
       .update(updates)
@@ -112,7 +112,7 @@ export class DatabaseService {
     return { data: report, error };
   }
 
-  async getMedicalReport(id: string): Promise<{ data: MedicalReport | null; error: any }> {
+  async getMedicalReport(id: string): Promise<{ data: MedicalReport | null; error: PostgrestError | null }> {
     const { data: report, error } = await this.supabase
       .from('medical_reports')
       .select('*')
@@ -126,7 +126,7 @@ export class DatabaseService {
     userId: string,
     limit: number = 10,
     offset: number = 0
-  ): Promise<{ data: ReportSummary[] | null; error: any }> {
+  ): Promise<{ data: ReportSummary[] | null; error: PostgrestError | null }> {
     const { data: reports, error } = await this.supabase
       .from('report_summary')
       .select('*')
@@ -137,7 +137,7 @@ export class DatabaseService {
     return { data: reports, error };
   }
 
-  async deleteMedicalReport(id: string): Promise<{ error: any }> {
+  async deleteMedicalReport(id: string): Promise<{ error: PostgrestError | null }> {
     const { error } = await this.supabase
       .from('medical_reports')
       .delete()
@@ -155,7 +155,7 @@ export class DatabaseService {
       status: 'NORMAL' | 'ABNORMAL' | 'CONCERNING' | 'UNKNOWN';
       explanation: string;
     }>
-  ): Promise<{ data: TestResult[] | null; error: any }> {
+  ): Promise<{ data: TestResult[] | null; error: PostgrestError | null }> {
     const testData = testResults.map(test => ({
       report_id: reportId,
       ...test
@@ -169,7 +169,7 @@ export class DatabaseService {
     return { data: results, error };
   }
 
-  async getTestResults(reportId: string): Promise<{ data: TestResult[] | null; error: any }> {
+  async getTestResults(reportId: string): Promise<{ data: TestResult[] | null; error: PostgrestError | null }> {
     const { data: results, error } = await this.supabase
       .from('test_results')
       .select('*')
@@ -182,7 +182,7 @@ export class DatabaseService {
   async updateTestResult(
     id: string,
     updates: Partial<TestResult>
-  ): Promise<{ data: TestResult | null; error: any }> {
+  ): Promise<{ data: TestResult | null; error: PostgrestError | null }> {
     const { data: result, error } = await this.supabase
       .from('test_results')
       .update(updates)
@@ -193,7 +193,7 @@ export class DatabaseService {
     return { data: result, error };
   }
 
-  async deleteTestResult(id: string): Promise<{ error: any }> {
+  async deleteTestResult(id: string): Promise<{ error: PostgrestError | null }> {
     const { error } = await this.supabase
       .from('test_results')
       .delete()
@@ -209,7 +209,7 @@ export class DatabaseService {
     status: string;
     message?: string;
     duration_ms?: number;
-  }): Promise<{ data: ProcessingLog | null; error: any }> {
+  }): Promise<{ data: ProcessingLog | null; error: PostgrestError | null }> {
     const { data: log, error } = await this.supabase
       .from('processing_logs')
       .insert([data])
@@ -219,7 +219,7 @@ export class DatabaseService {
     return { data: log, error };
   }
 
-  async getProcessingLogs(reportId: string): Promise<{ data: ProcessingLog[] | null; error: any }> {
+  async getProcessingLogs(reportId: string): Promise<{ data: ProcessingLog[] | null; error: PostgrestError | null }> {
     const { data: logs, error } = await this.supabase
       .from('processing_logs')
       .select('*')
@@ -230,7 +230,7 @@ export class DatabaseService {
   }
 
   // User Preferences Operations
-  async getUserPreferences(userId: string): Promise<{ data: UserPreferences | null; error: any }> {
+  async getUserPreferences(userId: string): Promise<{ data: UserPreferences | null; error: PostgrestError | null }> {
     const { data: preferences, error } = await this.supabase
       .from('user_preferences')
       .select('*')
@@ -244,7 +244,7 @@ export class DatabaseService {
     user_id: string;
     email_notifications?: boolean;
     analysis_history_retention_days?: number;
-  }): Promise<{ data: UserPreferences | null; error: any }> {
+  }): Promise<{ data: UserPreferences | null; error: PostgrestError | null }> {
     const { data: preferences, error } = await this.supabase
       .from('user_preferences')
       .insert([data])
@@ -257,7 +257,7 @@ export class DatabaseService {
   async updateUserPreferences(
     userId: string,
     updates: Partial<UserPreferences>
-  ): Promise<{ data: UserPreferences | null; error: any }> {
+  ): Promise<{ data: UserPreferences | null; error: PostgrestError | null }> {
     const { data: preferences, error } = await this.supabase
       .from('user_preferences')
       .update(updates)
@@ -269,7 +269,7 @@ export class DatabaseService {
   }
 
   // Report Details Operations
-  async getReportDetails(reportId: string): Promise<{ data: ReportDetails[] | null; error: any }> {
+  async getReportDetails(reportId: string): Promise<{ data: ReportDetails[] | null; error: PostgrestError | null }> {
     const { data: details, error } = await this.supabase
       .rpc('get_report_details', { p_report_id: reportId });
 
@@ -277,7 +277,7 @@ export class DatabaseService {
   }
 
   // Utility Functions
-  async getReportHealthScore(reportId: string): Promise<{ data: number | null; error: any }> {
+  async getReportHealthScore(reportId: string): Promise<{ data: number | null; error: PostgrestError | null }> {
     const { data: report, error } = await this.supabase
       .from('report_summary')
       .select('health_score')
@@ -294,7 +294,7 @@ export class DatabaseService {
       average_health_score: number;
       recent_reports: ReportSummary[];
     } | null;
-    error: any;
+    error: PostgrestError | null;
   }> {
     // Get total reports
     const { count: totalReports, error: countError } = await this.supabase
@@ -343,7 +343,7 @@ export class DatabaseService {
       status: 'NORMAL' | 'ABNORMAL' | 'CONCERNING' | 'UNKNOWN';
       explanation: string;
     }>;
-  }): Promise<{ error: any }> {
+  }): Promise<{ error: PostgrestError | null }> {
     const { reportId, patientInfo, testResults } = data;
 
     // Update the medical report with patient info and mark as completed
