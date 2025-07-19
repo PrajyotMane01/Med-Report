@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useAuth } from './AuthProvider';
-import { createSupabaseClient } from '@/lib/supabase';
 
 interface LoginButtonProps {
   size?: 'default' | 'large';
