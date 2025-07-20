@@ -5,11 +5,29 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
+  const error = requestUrl.searchParams.get('error')
+
+  if (error) {
+    console.error('OAuth error:', error)
+    return NextResponse.redirect(`${requestUrl.origin}/signin?error=${error}`)
+  }
 
   if (code) {
-    const cookieStore = cookies()
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
-    await supabase.auth.exchangeCodeForSession(code)
+    try {
+      const cookieStore = cookies()
+      const supabase = createRouteHandlerClient({ 
+        cookies: () => cookieStore 
+      })
+      const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
+      
+      if (exchangeError) {
+        console.error('Error exchanging code for session:', exchangeError)
+        return NextResponse.redirect(`${requestUrl.origin}/signin?error=auth_failed`)
+      }
+    } catch (err) {
+      console.error('Exception during auth exchange:', err)
+      return NextResponse.redirect(`${requestUrl.origin}/signin?error=auth_failed`)
+    }
   }
 
   // Use environment variable if available, otherwise use request origin
