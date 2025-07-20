@@ -36,7 +36,7 @@ export default function Home() {
             <div className="flex items-center gap-6">
               <Link 
                 href="/analyze" 
-                className="bg-[#4cbe4c] text-white px-4 py-2 rounded-lg shadow-soft hover:shadow-soft-lg transition-all duration-300 font-medium hover:bg-[#3d9b3d]"
+                className="hidden md:block bg-[#4cbe4c] text-white px-4 py-2 rounded-lg shadow-soft hover:shadow-soft-lg transition-all duration-300 font-medium hover:bg-[#3d9b3d]"
               >
                 Analyze Report
               </Link>

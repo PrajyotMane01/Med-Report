@@ -8,16 +8,13 @@ export async function GET(request: NextRequest) {
   const error = requestUrl.searchParams.get('error')
 
   if (error) {
-    console.error('OAuth error:', error)
     return NextResponse.redirect(`${requestUrl.origin}/signin?error=${error}`)
   }
 
   if (code) {
     try {
       const cookieStore = cookies()
-      const supabase = createRouteHandlerClient({ 
-        cookies: () => cookieStore 
-      })
+      const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
       const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
       
       if (exchangeError) {
