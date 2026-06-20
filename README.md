@@ -393,7 +393,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Issues**: [GitHub Issues](https://github.com/PrajyotMane01/Med-Report/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/PrajyotMane01/Med-Report/discussions)
-- **Email**: support@medreports.ai
+- **Email**: prajyotmane01@gmail.com
 
 ---
 
