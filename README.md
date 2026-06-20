@@ -21,9 +21,6 @@ An AI-powered web application that transforms complex medical reports into clear
 - ⚡ **Real-time Processing** - Live status updates during analysis
 - 🏥 **Medical Compliance** - Comprehensive disclaimers and privacy protection
 
-## 🚀 Live Demo
-
-[Visit MedReports AI](https://your-deployment-url.vercel.app) (Replace with your actual deployment URL)
 
 ## 🏗️ Architecture
 
